@@ -1,12 +1,11 @@
-import { z } from "zod";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import {
-  createTRPCRouter,
-  publicProcedure,
-  protectedProcedure,
-} from "@/server/api/trpc";
+import { z } from "zod";
+import { serialize } from "cookie";
+import { cookies } from "next/headers";
+import { setTimeout } from "node:timers/promises";
 
-interface StrapiUser {
+export interface StrapiUser {
   id: number;
   documentId: string;
   username: string;
@@ -17,10 +16,11 @@ interface StrapiUser {
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date;
-  firstName: string | null;
-  lastName: string | null;
+  firstName: string;
+  lastName: string;
   birthday: null;
   phoneNumber: null;
+  locale: string | null;
 }
 
 interface StrapiAuthResponse {
@@ -29,7 +29,6 @@ interface StrapiAuthResponse {
 }
 
 export const authRouter = createTRPCRouter({
-  // Login mutation
   login: publicProcedure
     .input(
       z.object({
@@ -37,7 +36,7 @@ export const authRouter = createTRPCRouter({
         password: z.string().min(1, "Password is required"),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const { email, password } = input;
 
       try {
@@ -69,8 +68,17 @@ export const authRouter = createTRPCRouter({
           firstName: data.user.firstName,
           lastName: data.user.lastName,
           username: data.user.username,
-          jwt: data.jwt,
         };
+
+        ctx.resHeaders.set(
+          "Set-Cookie",
+          serialize("events/auth-token", data.jwt, {
+            httpOnly: true,
+            path: "/",
+            maxAge: 60 * 60 * 24 * 7 * 2000,
+            sameSite: "lax",
+          })
+        );
 
         return {
           success: true,
@@ -114,7 +122,7 @@ export const authRouter = createTRPCRouter({
           path: ["confirmPassword"],
         })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const { firstName, lastName, email, password, phoneNumber } = input;
 
       try {
@@ -146,18 +154,32 @@ export const authRouter = createTRPCRouter({
         const data = (await response.json()) as StrapiAuthResponse;
 
         const userSession = {
-          id: String(data.user.id),
+          id: data.user.id,
           email: data.user.email,
           firstName: data.user.firstName,
           lastName: data.user.lastName,
           username: data.user.username,
-          jwt: data.jwt,
+          blocked: data.user.blocked,
+          confirmed: data.user.confirmed,
+          locale: data.user.locale || "en",
         };
 
+        ctx.resHeaders.set(
+          "Set-Cookie",
+          serialize("events/auth-token", data.jwt, {
+            httpOnly: true,
+            path: "/",
+            maxAge: 60 * 60 * 24 * 7 * 2000,
+            sameSite: "lax",
+          })
+        );
+
+        //
         return {
           success: true,
           user: userSession,
           jwt: data.jwt,
+          data,
           message: "Registration successful",
         };
       } catch (error) {
@@ -172,9 +194,26 @@ export const authRouter = createTRPCRouter({
     }),
 
   // Get current user session
-  me: protectedProcedure.query(async ({ ctx }) => {
-    // Return the user from the session context
-    return ctx.session;
+  session: publicProcedure.query(async ({ ctx }) => {
+    const token = (await cookies()).get("events/auth-token")?.value;
+
+    if (ctx.session) return ctx.session;
+
+    try {
+      const response = await fetch("http://localhost:1337/api/users/me", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setTimeout(1000); // Simulate a delay for demonstration purposes
+
+      return response.ok ? ((await response.json()) as StrapiUser) : null;
+    } catch (error) {
+      console.error("Error fetching user session:", error);
+      return null;
+    }
   }),
 
   // Logout mutation

@@ -15,6 +15,9 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { api } from "@/trpc/server";
+import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Dashboard - Admin Panel",
@@ -27,10 +30,24 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <Suspense fallback={<Loading />}>
+      <LayoutWithUser>{children}</LayoutWithUser>
+    </Suspense>
+  );
+}
+
+const LayoutWithUser = async ({ children }: { children: React.ReactNode }) => {
+  const user = await api.auth.session();
+
+  console.log(user);
+  // apiClient.auth.session.usePrefetchQuery();
+
+  if (!user) return redirect("/login");
+  return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar user={user} />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2">
+        <header className="flex h-16 shrink-0 items-center gap-2 justify-between">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator
@@ -55,5 +72,13 @@ export default function DashboardLayout({
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
       </SidebarInset>
     </SidebarProvider>
+  );
+};
+
+export function Loading() {
+  return (
+    <div className="flex h-screen w-screen items-center justify-center">
+      <span className="loader"></span>
+    </div>
   );
 }

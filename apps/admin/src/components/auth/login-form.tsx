@@ -43,7 +43,7 @@ export function LoginForm({
   });
 
   const loginMutation = api.auth.login.useMutation({
-    onSuccess: () => router.replace("/"),
+    onSuccess: () => router.push("/"),
     onError: (error) => {
       toast.error(error.message);
     },

@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import "./globals.css";
 import { TRPCReactProvider } from "@/trpc/react";
 import { Toaster } from "@/components/ui/sonner";
+import { headers } from "next/headers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-
-  console.log(locale);
+  const head = await headers();
 
   return (
     <html lang={locale}>
@@ -37,7 +37,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster theme="light" richColors position="top-center" />
-        <TRPCReactProvider>
+        <TRPCReactProvider headers={head}>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </TRPCReactProvider>
       </body>

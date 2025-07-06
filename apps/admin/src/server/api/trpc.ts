@@ -9,6 +9,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { StrapiUser } from "./routers/auth";
 
 /**
  * 1. CONTEXT
@@ -22,19 +23,54 @@ import { ZodError } from "zod";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
-  // Make a call to strapi to grab the session or user data.
+export const createTRPCContext = async (opts: {
+  headers: Headers;
+  resHeaders: Headers;
+}) => {
+  // Get JWT from Authorization header or cookies
   const { headers } = opts;
 
-  const session = await fetch("http://localhost:1337/api/users/me", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: headers.get("authorization") || "",
-    },
-  });
+  // First try to get from Authorization header
+  let token = headers.get("authorization")?.replace("Bearer ", "");
+
+  // If not in header, try to get from cookies
+  if (!token) {
+    const cookieHeader = headers.get("cookie");
+    if (cookieHeader) {
+      const cookies = cookieHeader.split(";").map((c) => c.trim());
+      const authCookie = cookies.find((c) => c.startsWith("auth-token="));
+      if (authCookie) {
+        token = authCookie.split("=")[1];
+      }
+    }
+  }
+
+  // If we have a token, validate it with Strapi
+  if (token) {
+    try {
+      const session = await fetch("http://localhost:1337/api/users/me", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("main session", session);
+
+      if (session.ok) {
+        const userData = (await session.json()) as StrapiUser;
+        return {
+          session: userData,
+          ...opts,
+        };
+      }
+    } catch (error) {
+      console.error("Session validation error:", error);
+    }
+  }
 
   return {
-    session: session.ok ? await session.json() : null,
+    session: null,
     ...opts,
   };
 };
@@ -122,7 +158,7 @@ export const protectedProcedure = t.procedure
     return next({
       ctx: {
         // infers the `session` as non-nullable
-        session: { ...ctx.session, user: ctx.session.user },
+        session: ctx.session,
       },
     });
   });

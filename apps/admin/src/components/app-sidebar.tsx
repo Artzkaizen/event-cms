@@ -1,6 +1,6 @@
 "use client";
 
-import { Command, Frame, PieChart } from "lucide-react";
+import { Command, Ticket } from "lucide-react";
 import * as React from "react";
 
 import { NavItems } from "@/components/nav-items";
@@ -14,6 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { StrapiUser } from "@/server/api/routers/auth";
 
 const data = {
   user: {
@@ -24,19 +25,17 @@ const data = {
 
   items: [
     {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
+      name: "Events",
+      url: "/events",
+      icon: Ticket,
     },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { user: StrapiUser }) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -48,8 +47,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">
+                    Events Planner Inc
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -60,7 +60,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavItems projects={data.items} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );

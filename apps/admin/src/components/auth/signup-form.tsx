@@ -25,8 +25,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { api } from "@/trpc/react";
-import { useState } from "react";
-import { useAuth } from "@/contexts/auth-context";
 
 export function SignUpForm({
   className,
@@ -35,8 +33,6 @@ export function SignUpForm({
   const t = useTranslations("Auth.SignUp");
   const tValidation = useTranslations("Validation");
   const router = useRouter();
-  const { login } = useAuth();
-  const [error, setError] = useState<string | null>(null);
 
   const SignUpSchema = z
     .object({
@@ -77,23 +73,16 @@ export function SignUpForm({
   });
 
   const signupMutation = api.auth.signup.useMutation({
-    onSuccess: (data) => {
-      // Use auth context to handle login after successful signup
-      login(data.user, data.jwt);
-
-      // Redirect to dashboard
-      router.push("/dashboard");
-    },
+    onSuccess: () => router.push("/"),
     onError: (error) => {
-      setError(error.message);
+      console.log(error);
     },
   });
 
   const handleSubmit: SubmitHandler<z.infer<typeof SignUpSchema>> = async (
     data
   ) => {
-    setError(null);
-    signupMutation.mutate(data);
+    await signupMutation.mutateAsync(data);
   };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -106,9 +95,9 @@ export function SignUpForm({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
               <div className="flex flex-col gap-6">
-                {error && (
+                {signupMutation.error && (
                   <div className="bg-destructive/15 text-destructive px-4 py-3 rounded-md text-sm">
-                    {error}
+                    {signupMutation.error.message}
                   </div>
                 )}
 
