@@ -1,0 +1,118 @@
+{
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "Auth": {
+    "Login": {
+      "title": "Login to your account",
+      "description": "Enter your email below to login to your account",
+      "emailLabel": "Email",
+      "emailPlaceholder": "john@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Password",
+      "forgotPassword": "Forgot your password?",
+      "loginButton": "Login",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign Up"
+    },
+    "SignUp": {
+      "title": "Create Your Account",
+      "description": "Enter your details below to create your account",
+      "firstNameLabel": "First Name",
+      "firstNamePlaceholder": "John",
+      "lastNameLabel": "Last Name",
+      "lastNamePlaceholder": "Doe",
+      "emailLabel": "Email",
+      "emailPlaceholder": "john@example.com",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "signUpButton": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login"
+    },
+    "PasswordInput": {
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "forgotPassword": "Forgot your password?",
+      "strengthIndicator": {
+        "enterPassword": "Enter a password",
+        "weakPassword": "Weak password",
+        "mediumPassword": "Medium password",
+        "strongPassword": "Strong password",
+        "mustContain": "Must contain:",
+        "requirements": {
+          "atLeast8Characters": "At least 8 characters",
+          "atLeast1Number": "At least 1 number",
+          "atLeast1Lowercase": "At least 1 lowercase letter",
+          "atLeast1Uppercase": "At least 1 uppercase letter"
+        },
+        "requirementMet": "Requirement met",
+        "requirementNotMet": "Requirement not met"
+      }
+    }
+  },
+  "Navigation": {
+    "projectsLabel": "Projects",
+    "companyName": "Acme Inc",
+    "companyPlan": "Enterprise",
+    "userMenu": {
+      "settings": "Settings",
+      "logOut": "Log out"
+    },
+    "defaultProjects": {
+      "designEngineering": "Design Engineering",
+      "salesMarketing": "Sales & Marketing"
+    }
+  },
+  "PageTitles": {
+    "login": "Login - Welcome Back",
+    "signUp": "Sign Up - Create Your Account"
+  },
+  "PageDescriptions": {
+    "login": "Login to your account to access the dashboard",
+    "signUp": "Sign up for a new account to access the dashboard"
+  },
+  "Validation": {
+    "email": {
+      "invalid": "Please enter a valid email address"
+    },
+    "password": {
+      "required": "Password is required",
+      "minLength": "Password must be at least 8 characters long",
+      "requireNumber": "Password must contain at least 1 number",
+      "requireLowercase": "Password must contain at least 1 lowercase letter",
+      "requireUppercase": "Password must contain at least 1 uppercase letter"
+    },
+    "firstName": {
+      "required": "First name is required",
+      "minLength": "First name must be at least 1 character long",
+      "maxLength": "First name must be at most 50 characters long"
+    },
+    "lastName": {
+      "required": "Last name is required",
+      "minLength": "Last name must be at least 1 character long",
+      "maxLength": "Last name must be at most 50 characters long"
+    },
+    "confirmPassword": {
+      "required": "Confirm password is required",
+      "noMatch": "Passwords do not match"
+    }
+  },
+  "Common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "update": "Update",
+    "submit": "Submit",
+    "close": "Close",
+    "open": "Open",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK"
+  }
+}

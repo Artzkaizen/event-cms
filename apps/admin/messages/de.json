@@ -1,0 +1,118 @@
+{
+  "HomePage": {
+    "title": "Hallo Welt!"
+  },
+  "Auth": {
+    "Login": {
+      "title": "In Ihr Konto einloggen",
+      "description": "Geben Sie unten Ihre E-Mail-Adresse ein, um sich in Ihr Konto einzuloggen",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "john@beispiel.com",
+      "passwordLabel": "Passwort",
+      "passwordPlaceholder": "Passwort",
+      "forgotPassword": "Passwort vergessen?",
+      "loginButton": "Anmelden",
+      "noAccount": "Haben Sie noch kein Konto?",
+      "signUpLink": "Registrieren"
+    },
+    "SignUp": {
+      "title": "Konto erstellen",
+      "description": "Geben Sie unten Ihre Daten ein, um Ihr Konto zu erstellen",
+      "firstNameLabel": "Vorname",
+      "firstNamePlaceholder": "Max",
+      "lastNameLabel": "Nachname",
+      "lastNamePlaceholder": "Mustermann",
+      "emailLabel": "E-Mail",
+      "emailPlaceholder": "max@beispiel.com",
+      "passwordLabel": "Passwort",
+      "confirmPasswordLabel": "Passwort bestätigen",
+      "signUpButton": "Registrieren",
+      "haveAccount": "Haben Sie bereits ein Konto?",
+      "loginLink": "Anmelden"
+    },
+    "PasswordInput": {
+      "passwordLabel": "Passwort",
+      "passwordPlaceholder": "Passwort",
+      "showPassword": "Passwort anzeigen",
+      "hidePassword": "Passwort verbergen",
+      "forgotPassword": "Passwort vergessen?",
+      "strengthIndicator": {
+        "enterPassword": "Passwort eingeben",
+        "weakPassword": "Schwaches Passwort",
+        "mediumPassword": "Mittleres Passwort",
+        "strongPassword": "Starkes Passwort",
+        "mustContain": "Muss enthalten:",
+        "requirements": {
+          "atLeast8Characters": "Mindestens 8 Zeichen",
+          "atLeast1Number": "Mindestens 1 Zahl",
+          "atLeast1Lowercase": "Mindestens 1 Kleinbuchstabe",
+          "atLeast1Uppercase": "Mindestens 1 Großbuchstabe"
+        },
+        "requirementMet": "Anforderung erfüllt",
+        "requirementNotMet": "Anforderung nicht erfüllt"
+      }
+    }
+  },
+  "Navigation": {
+    "projectsLabel": "Projekte",
+    "companyName": "Acme GmbH",
+    "companyPlan": "Enterprise",
+    "userMenu": {
+      "settings": "Einstellungen",
+      "logOut": "Abmelden"
+    },
+    "defaultProjects": {
+      "designEngineering": "Design Engineering",
+      "salesMarketing": "Vertrieb & Marketing"
+    }
+  },
+  "PageTitles": {
+    "login": "Anmelden - Willkommen zurück",
+    "signUp": "Registrieren - Konto erstellen"
+  },
+  "PageDescriptions": {
+    "login": "Melden Sie sich in Ihr Konto an, um auf das Dashboard zuzugreifen",
+    "signUp": "Registrieren Sie sich für ein neues Konto, um auf das Dashboard zuzugreifen"
+  },
+  "Validation": {
+    "email": {
+      "invalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein"
+    },
+    "password": {
+      "required": "Passwort ist erforderlich",
+      "minLength": "Passwort muss mindestens 8 Zeichen lang sein",
+      "requireNumber": "Passwort muss mindestens 1 Zahl enthalten",
+      "requireLowercase": "Passwort muss mindestens 1 Kleinbuchstaben enthalten",
+      "requireUppercase": "Passwort muss mindestens 1 Großbuchstaben enthalten"
+    },
+    "firstName": {
+      "required": "Vorname ist erforderlich",
+      "minLength": "Vorname muss mindestens 1 Zeichen lang sein",
+      "maxLength": "Vorname darf höchstens 50 Zeichen lang sein"
+    },
+    "lastName": {
+      "required": "Nachname ist erforderlich",
+      "minLength": "Nachname muss mindestens 1 Zeichen lang sein",
+      "maxLength": "Nachname darf höchstens 50 Zeichen lang sein"
+    },
+    "confirmPassword": {
+      "required": "Passwort-Bestätigung ist erforderlich",
+      "noMatch": "Passwörter stimmen nicht überein"
+    }
+  },
+  "Common": {
+    "loading": "Wird geladen...",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "submit": "Absenden",
+    "close": "Schließen",
+    "open": "Öffnen",
+    "yes": "Ja",
+    "no": "Nein",
+    "ok": "OK"
+  }
+}
