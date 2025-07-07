@@ -7,7 +7,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo watch dev --continue"
+    "dev": "turbo watch dev --continue",
+    "setup:env": "cp apps/admin/.env.sample apps/admin/.env && cp apps/strapi/.env.sample apps/strapi/.env"
   },
   "repository": {
     "type": "git",

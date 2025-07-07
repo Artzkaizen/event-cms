@@ -18,10 +18,17 @@ import {
   DollarSign,
 } from "lucide-react";
 
-export const EventDetails = ({ id }: { id: string }) => {
+export const EventDetails = ({
+  id,
+  locale,
+}: {
+  id: string;
+  locale: string;
+}) => {
   const [data, { error }] = api.events.byId.useSuspenseQuery({
     id,
-    locale: "en",
+    // @ts-expect-error locale is a subset of a string union type
+    locale: locale || "en",
   });
 
   if (error) {
