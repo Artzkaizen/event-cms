@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
 
 import { AppSidebar } from "@/components/app-sidebar";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -30,6 +22,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // @ts-expect-error weird-nextjs-issue
     <Suspense fallback={<Loading />}>
       <LayoutWithUser>{children}</LayoutWithUser>
     </Suspense>
@@ -38,9 +31,6 @@ export default function DashboardLayout({
 
 const LayoutWithUser = async ({ children }: { children: React.ReactNode }) => {
   const user = await api.auth.session();
-
-  console.log(user);
-  // apiClient.auth.session.usePrefetchQuery();
 
   if (!user) return redirect("/login");
   return (
@@ -54,19 +44,6 @@ const LayoutWithUser = async ({ children }: { children: React.ReactNode }) => {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>

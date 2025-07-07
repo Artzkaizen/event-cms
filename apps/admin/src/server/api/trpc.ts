@@ -10,6 +10,8 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 import { StrapiUser } from "./routers/auth";
+import { cookies } from "next/headers";
+import { env } from "@/env";
 
 /**
  * 1. CONTEXT
@@ -28,38 +30,25 @@ export const createTRPCContext = async (opts: {
   resHeaders: Headers;
 }) => {
   // Get JWT from Authorization header or cookies
-  const { headers } = opts;
 
-  // First try to get from Authorization header
-  let token = headers.get("authorization")?.replace("Bearer ", "");
+  const cooks = await cookies();
+  const token = cooks.get("events/auth-token")?.value;
 
-  // If not in header, try to get from cookies
-  if (!token) {
-    const cookieHeader = headers.get("cookie");
-    if (cookieHeader) {
-      const cookies = cookieHeader.split(";").map((c) => c.trim());
-      const authCookie = cookies.find((c) => c.startsWith("auth-token="));
-      if (authCookie) {
-        token = authCookie.split("=")[1];
-      }
-    }
-  }
-
-  // If we have a token, validate it with Strapi
   if (token) {
     try {
-      const session = await fetch("http://localhost:1337/api/users/me", {
+      const session = await fetch(`${env.STRAPI_API_URL}/users/me`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
 
-      console.log("main session", session);
+      // console.log("session", session);
 
       if (session.ok) {
         const userData = (await session.json()) as StrapiUser;
         return {
+          token,
           session: userData,
           ...opts,
         };
@@ -70,6 +59,7 @@ export const createTRPCContext = async (opts: {
   }
 
   return {
+    token: null,
     session: null,
     ...opts,
   };
@@ -152,6 +142,7 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
 export const protectedProcedure = t.procedure
   .use(timingMiddleware)
   .use(({ ctx, next }) => {
+    console.log("mad session", ctx.session);
     if (!ctx.session) {
       throw new TRPCError({ code: "UNAUTHORIZED" });
     }

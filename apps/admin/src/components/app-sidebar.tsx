@@ -1,6 +1,6 @@
 "use client";
 
-import { Command, Ticket } from "lucide-react";
+import { Accessibility, Command, Ticket } from "lucide-react";
 import * as React from "react";
 
 import { NavItems } from "@/components/nav-items";
@@ -23,11 +23,18 @@ const data = {
     avatar: "/avatars/shadcn.jpg",
   },
 
-  items: [
+  events: [
     {
       name: "Events",
       url: "/events",
       icon: Ticket,
+    },
+  ],
+  accounts: [
+    {
+      name: "Disability Cards",
+      url: "/disability-cards",
+      icon: Accessibility,
     },
   ],
 };
@@ -57,7 +64,8 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavItems projects={data.items} />
+        <NavItems label="Events" items={data.events} />
+        <NavItems label="Accounts" items={data.accounts} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />
