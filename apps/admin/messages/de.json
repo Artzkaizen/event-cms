@@ -100,6 +100,58 @@
       "noMatch": "Passwörter stimmen nicht überein"
     }
   },
+  "Sidebar": {
+    "companyName": "Veranstaltungsplaner GmbH",
+    "navigation": {
+      "events": "Veranstaltungen",
+      "accounts": "Konten"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "events": "Veranstaltungen",
+      "disabilityCards": "Behindertenausweise",
+      "venues": "Veranstaltungsorte",
+      "organizers": "Veranstalter",
+      "tickets": "Tickets",
+      "users": "Benutzer",
+      "reports": "Berichte",
+      "settings": "Einstellungen"
+    }
+  },
+  "Events": {
+    "upcomingEvents": "Kommende Veranstaltungen",
+    "backToEvents": "Zurück"
+  },
+  "Metadata": {
+    "appTitle": "SRH Veranstaltungsmanagement",
+    "appDescription": "Umfassendes Veranstaltungsmanagementsystem für die SRH Universität",
+    "dashboardTitle": "Dashboard - Veranstaltungsmanagement",
+    "dashboardDescription": "Verwalten Sie Ihre Veranstaltungen, Veranstaltungsorte und Teilnehmer"
+  },
+  "EventDetails": {
+    "noDescriptionAvailable": "Keine Beschreibung verfügbar",
+    "eventWebsite": "Veranstaltungs-Website",
+    "tbd": "TBD",
+    "venue": "Veranstaltungsort",
+    "maxCapacity": "Max. Kapazität",
+    "organizer": "Veranstalter",
+    "unknown": "Unbekannt",
+    "eventSchedule": "Veranstaltungsplan",
+    "eventStarts": "Veranstaltung beginnt",
+    "eventEnds": "Veranstaltung endet",
+    "venueInformation": "Veranstaltungsort-Informationen",
+    "unknownLocation": "Unbekannter Ort",
+    "addressNotAvailable": "Adresse nicht verfügbar",
+    "venueCapacity": "Veranstaltungsort-Kapazität",
+    "status": "Status",
+    "na": "N/A",
+    "ticketCategories": "Ticket-Kategorien",
+    "accessibility": "Barrierefreiheits-Features",
+    "loadingEvent": "Lade Veranstaltungsdetails...",
+    "eventNotFound": "Veranstaltung nicht gefunden",
+    "eventNotFoundDescription": "Die angeforderte Veranstaltung konnte nicht gefunden werden.",
+    "errorLoadingEvent": "Fehler beim Laden der Veranstaltung"
+  },
   "Common": {
     "loading": "Wird geladen...",
     "save": "Speichern",
@@ -113,6 +165,9 @@
     "open": "Öffnen",
     "yes": "Ja",
     "no": "Nein",
-    "ok": "OK"
+    "ok": "OK",
+    "changeLanguage": "Sprache ändern",
+    "language": "Sprache",
+    "logout": "Abmelden"
   }
 }

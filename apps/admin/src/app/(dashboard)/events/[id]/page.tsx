@@ -13,10 +13,18 @@ async function EventDetailsPage({
 
   return (
     // @ts-expect-error weird-nextjs-issue
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <EventDetails id={id} locale={locale} />
     </Suspense>
   );
 }
 
 export default EventDetailsPage;
+
+export function Loading() {
+  return (
+    <div className="flex h-screen w-screen items-center justify-center">
+      <span className="loader"></span>
+    </div>
+  );
+}

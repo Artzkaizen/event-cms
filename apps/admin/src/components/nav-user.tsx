@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -21,6 +22,7 @@ import { StrapiUser } from "@/server/api/routers/auth";
 
 export function NavUser({ user }: { user: StrapiUser }) {
   const { isMobile } = useSidebar();
+  const t = useTranslations("Navigation.userMenu");
 
   const fullName = `${user.firstName} ${user.lastName}`.trim();
 
@@ -67,12 +69,12 @@ export function NavUser({ user }: { user: StrapiUser }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Settings />
-              Settings
+              {t("settings")}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem variant="destructive">
               <LogOut />
-              Log out
+              {t("logOut")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

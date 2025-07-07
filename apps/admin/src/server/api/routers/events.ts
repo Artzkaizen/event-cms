@@ -4,7 +4,7 @@ import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod/v4";
 
-const localeSchema = z.enum(["en", "fr", "es"]).default("en");
+const localeSchema = z.enum(["en", "de", "es"]).default("en");
 //const link = `${env.STRAPI_API_URL}/tickets?filters[user][id][$eq]=${ctx.session.id}&populate=*`;
 export const eventsRouter = createTRPCRouter({
   all: protectedProcedure
@@ -20,8 +20,6 @@ export const eventsRouter = createTRPCRouter({
     )
     .query(async ({ input, ctx }) => {
       const link = `${env.STRAPI_API_URL}/events?populate=*&pagination[page]=${input.page}&pagination[pageSize]=${input.pageSize}${input.locale ? `&locale=${input.locale}` : ""}`;
-
-      console.log(link);
 
       try {
         const response = await fetch(link, {

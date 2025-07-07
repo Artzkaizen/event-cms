@@ -100,6 +100,58 @@
       "noMatch": "Passwords do not match"
     }
   },
+  "Sidebar": {
+    "companyName": "Events Planner Inc",
+    "navigation": {
+      "events": "Events",
+      "accounts": "Accounts"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "events": "Events",
+      "disabilityCards": "Disability Cards",
+      "venues": "Venues",
+      "organizers": "Organizers",
+      "tickets": "Tickets",
+      "users": "Users",
+      "reports": "Reports",
+      "settings": "Settings"
+    }
+  },
+  "Events": {
+    "upcomingEvents": "Upcoming Events",
+    "backToEvents": "Back"
+  },
+  "Metadata": {
+    "appTitle": "SRH Event Management",
+    "appDescription": "Comprehensive event management system for SRH University",
+    "dashboardTitle": "Dashboard - Event Management",
+    "dashboardDescription": "Manage your events, venues, and participants"
+  },
+  "EventDetails": {
+    "noDescriptionAvailable": "No description available",
+    "eventWebsite": "Event Website",
+    "tbd": "TBD",
+    "venue": "Venue",
+    "maxCapacity": "Max Capacity",
+    "organizer": "Organizer",
+    "unknown": "Unknown",
+    "eventSchedule": "Event Schedule",
+    "eventStarts": "Event Starts",
+    "eventEnds": "Event Ends",
+    "venueInformation": "Venue Information",
+    "unknownLocation": "Unknown Location",
+    "addressNotAvailable": "Address not available",
+    "venueCapacity": "Venue Capacity",
+    "status": "Status",
+    "na": "N/A",
+    "ticketCategories": "Ticket Categories",
+    "accessibility": "Accessibility Features",
+    "loadingEvent": "Loading event details...",
+    "eventNotFound": "Event not found",
+    "eventNotFoundDescription": "The requested event could not be found.",
+    "errorLoadingEvent": "Error loading event"
+  },
   "Common": {
     "loading": "Loading...",
     "save": "Save",
@@ -113,6 +165,9 @@
     "open": "Open",
     "yes": "Yes",
     "no": "No",
-    "ok": "OK"
+    "ok": "OK",
+    "changeLanguage": "Change language",
+    "language": "Language",
+    "logout": "Log out"
   }
 }

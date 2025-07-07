@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 const languages = [
@@ -18,6 +18,7 @@ const languages = [
 export function LanguageSwitcher() {
   const locale = useLocale();
   const router = useRouter();
+  const t = useTranslations("Common");
 
   const lang = languages.find((lang) => lang.code === locale) || languages[0];
 

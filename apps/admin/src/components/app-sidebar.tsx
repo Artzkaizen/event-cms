@@ -1,6 +1,7 @@
 "use client";
 
-import { Accessibility, Command, Ticket } from "lucide-react";
+import { Accessibility, Command, LayoutDashboard, Ticket } from "lucide-react";
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import { NavItems } from "@/components/nav-items";
@@ -16,33 +17,34 @@ import {
 } from "@/components/ui/sidebar";
 import { StrapiUser } from "@/server/api/routers/auth";
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-
-  events: [
-    {
-      name: "Events",
-      url: "/events",
-      icon: Ticket,
-    },
-  ],
-  accounts: [
-    {
-      name: "Disability Cards",
-      url: "/disability-cards",
-      icon: Accessibility,
-    },
-  ],
-};
-
 export function AppSidebar({
   user,
   ...props
 }: React.ComponentProps<typeof Sidebar> & { user: StrapiUser }) {
+  const t = useTranslations("Sidebar");
+
+  const data = {
+    events: [
+      {
+        name: t("items.dashboard"),
+        url: "/",
+        icon: LayoutDashboard,
+      },
+      {
+        name: t("items.events"),
+        url: "/events",
+        icon: Ticket,
+      },
+    ],
+    accounts: [
+      {
+        name: t("items.disabilityCards"),
+        url: "/disability-cards",
+        icon: Accessibility,
+      },
+    ],
+  };
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -55,7 +57,7 @@ export function AppSidebar({
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">
-                    Events Planner Inc
+                    {t("companyName")}
                   </span>
                 </div>
               </a>
@@ -64,8 +66,8 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavItems label="Events" items={data.events} />
-        <NavItems label="Accounts" items={data.accounts} />
+        <NavItems label={t("navigation.events")} items={data.events} />
+        <NavItems label={t("navigation.accounts")} items={data.accounts} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

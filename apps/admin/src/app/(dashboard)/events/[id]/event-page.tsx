@@ -1,6 +1,7 @@
 "use client";
 
 import { api } from "@/trpc/react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import {
   ExternalLink,
   DollarSign,
 } from "lucide-react";
+import Link from "next/link";
 
 export const EventDetails = ({
   id,
@@ -25,6 +27,8 @@ export const EventDetails = ({
   id: string;
   locale: string;
 }) => {
+  const t = useTranslations("EventDetails");
+  const et = useTranslations("Events");
   const [data, { error }] = api.events.byId.useSuspenseQuery({
     id,
     // @ts-expect-error locale is a subset of a string union type
@@ -38,7 +42,7 @@ export const EventDetails = ({
           <CardContent className="pt-6">
             <div className="text-center">
               <div className="text-red-600 font-medium mb-2">
-                Error Loading Event
+                {t("errorLoadingEvent")}
               </div>
               <p className="text-red-500 text-sm">{error.message}</p>
             </div>
@@ -57,9 +61,9 @@ export const EventDetails = ({
         <Card className="w-full max-w-md">
           <CardContent className="pt-6">
             <div className="text-center">
-              <div className="font-medium mb-2">Event Not Found</div>
+              <div className="font-medium mb-2">{t("eventNotFound")}</div>
               <p className="text-sm text-muted-foreground">
-                The requested event could not be found.
+                {t("eventNotFoundDescription")}
               </p>
             </div>
           </CardContent>
@@ -110,6 +114,9 @@ export const EventDetails = ({
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
+      <Button variant="link" className="border" asChild>
+        <Link href="/events">{et("backToEvents")}</Link>
+      </Button>
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-slate-50 to-slate-100 rounded-xl p-8 border">
         <div className="flex items-start justify-between mb-6">

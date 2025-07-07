@@ -1,22 +1,20 @@
 "use client";
 
-// import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { api } from "@/trpc/react";
 import { Heart, Share2 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 function Events() {
-  const { data: events } = api.events.all.useQuery({});
+  const locale = useLocale() as "de" | "en";
+  const t = useTranslations("Events");
+
+  const { data: events } = api.events.all.useQuery({
+    locale,
+  });
   const [likedEvents] = useState<Set<number>>(new Set());
 
   return (
@@ -24,41 +22,7 @@ function Events() {
       <div>
         <div className="bg-white rounded-2xl ">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold">Upcoming Events</h2>
-            <div className="flex gap-4">
-              <Select>
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="Weekdays" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Days</SelectItem>
-                  <SelectItem value="weekdays">Weekdays</SelectItem>
-                  <SelectItem value="weekends">Weekends</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select>
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="Event Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="conference">Conference</SelectItem>
-                  <SelectItem value="music">Music</SelectItem>
-                  <SelectItem value="art">Art</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select>
-                <SelectTrigger className="w-32">
-                  <SelectValue placeholder="Any Category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Categories</SelectItem>
-                  <SelectItem value="business">Business</SelectItem>
-                  <SelectItem value="entertainment">Entertainment</SelectItem>
-                  <SelectItem value="education">Education</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+            <h2 className="text-2xl font-bold">{t("upcomingEvents")}</h2>
           </div>
 
           <div className="grid grid-cols-3 gap-6">
@@ -71,20 +35,13 @@ function Events() {
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="relative">
                     <Image
-                      src={"/placeholder.svg"}
+                      src="/placeholder.svg"
                       alt={event.name}
                       width={300}
                       height={200}
                       className="w-full h-48 object-cover"
                     />
-                    <div className="absolute top-3 left-3">
-                      {/* <Badge
-                      variant="secondary"
-                      className="bg-white/90 text-gray-900"
-                    >
-                      {event.price}
-                    </Badge> */}
-                    </div>
+                    <div className="absolute top-3 left-3"></div>
                     <div className="absolute top-3 right-3 flex gap-2">
                       <button className="bg-white/90 hover:bg-white p-2 rounded-full">
                         <Share2 className="w-4 h-4" />
@@ -108,7 +65,12 @@ function Events() {
                           })}
                         </div>
                         <div className="text-lg font-bold">
-                          {new Date(event.startTime).getDay()}
+                          {new Date(event.startTime).toLocaleDateString(
+                            "en-US",
+                            {
+                              day: "numeric",
+                            }
+                          )}
                         </div>
                       </div>
                       <div className="flex-1">

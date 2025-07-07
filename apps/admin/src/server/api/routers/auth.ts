@@ -3,7 +3,6 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { serialize } from "cookie";
 import { cookies } from "next/headers";
-import { setTimeout } from "node:timers/promises";
 import { env } from "@/env";
 
 export interface StrapiUser {
