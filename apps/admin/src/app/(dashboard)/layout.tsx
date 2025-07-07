@@ -10,6 +10,7 @@ import {
 import { api } from "@/trpc/server";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export const metadata: Metadata = {
   title: "Dashboard - Admin Panel",
@@ -44,6 +45,7 @@ const LayoutWithUser = async ({ children }: { children: React.ReactNode }) => {
               orientation="vertical"
               className="mr-2 data-[orientation=vertical]:h-4"
             />
+            <LanguageSwitcher />
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>

@@ -4,6 +4,7 @@ import { z } from "zod";
 import { serialize } from "cookie";
 import { cookies } from "next/headers";
 import { setTimeout } from "node:timers/promises";
+import { env } from "@/env";
 
 export interface StrapiUser {
   id: number;
@@ -40,7 +41,7 @@ export const authRouter = createTRPCRouter({
       const { email, password } = input;
 
       try {
-        const response = await fetch("http://localhost:1337/api/auth/local", {
+        const response = await fetch(`${env.STRAPI_API_URL}/auth/local`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -127,7 +128,7 @@ export const authRouter = createTRPCRouter({
 
       try {
         const response = await fetch(
-          "http://localhost:1337/api/auth/local/register",
+          `${env.STRAPI_API_URL}/auth/local/register`,
           {
             method: "POST",
             headers: {
@@ -200,14 +201,12 @@ export const authRouter = createTRPCRouter({
     if (ctx.session) return ctx.session;
 
     try {
-      const response = await fetch("http://localhost:1337/api/users/me", {
+      const response = await fetch(`${env.STRAPI_API_URL}/users/me`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-
-      setTimeout(1000); // Simulate a delay for demonstration purposes
 
       return response.ok ? ((await response.json()) as StrapiUser) : null;
     } catch (error) {

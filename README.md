@@ -69,8 +69,10 @@ A modern, full-stack event management platform built with **Next.js**, **Strapi 
    **Create Strapi Admin User:**
 
    - Visit http://localhost:1337/admin
-   - Create your first admin account
-   - Complete the setup wizard
+
+   - Login using:
+     - **Email**: chuka@demo.com
+     - **Password**: `vz36PH6!KE6f8zATQ`
 
    **Access Admin Dashboard:**
 
